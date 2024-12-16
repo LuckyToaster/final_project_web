@@ -4,13 +4,12 @@ import Button from '@/components/Button.js'
 import '@/app/globals.css'
 
 export function Form({children, sendToParent, initialValues, validationSchema, submitButton}) {
-    const formikFormStyle = "bg-white p-8 rounded-lg shadow-md max-w-md mx-auto"
-    //const buttonStyle = "w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-3 px-6 rounded-md transition-colors mt-4"
+    const formikFormStyle = "bg-white p-8 rounded-lg shadow-md max-w-md mx-auto mr-4 ml-4"
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={sendToParent}>
             <FormikForm className={formikFormStyle}> 
                 {children}
-                <Button /*className={buttonStyle}*/ type="submit">{submitButton}</Button>
+                <Button type="submit">{submitButton}</Button>
             </FormikForm>
         </Formik>
     )
@@ -18,8 +17,8 @@ export function Form({children, sendToParent, initialValues, validationSchema, s
 
 
 export function FormRow({name, label}) {
-    const fieldStyle = "w-full text-black p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-    const labelStyle = "block text-black mb-2 font-medium"
+    const fieldStyle = "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+    const labelStyle = "block mb-2 font-medium"
     const errorMsgStyle = "text-red-600 text-sm mt-1"
     return (
         <div className="mb-4">
@@ -83,7 +82,7 @@ export function ValidationForm({sendToParent}) {
         <Form sendToParent={handleSubmit} initialValues={i} validationSchema={s} submitButton='Validate Email'>
             <div className="flex space-x-2 justify-center">
                 {[1,2,3,4,5,6].map((num) => (
-                    <CodeInput className='text-black' key={num} name={`digit${num}`} />
+                    <CodeInput key={num} name={`digit${num}`} />
                 ))}
             </div>
         </Form>

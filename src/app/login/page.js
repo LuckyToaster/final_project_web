@@ -18,8 +18,8 @@ export default function Login() {
         {!isLoggedIn ? (<>
             <LoginForm sendToParent={async (json) => await handleLogin(json)}/>
             <h4>
-                Do not have an account yet? 
-                <Link href='/register' className='text-blue'>Get Started</Link>
+                Do not have an account yet?&nbsp; 
+                <Link href='/register' className='text-green-500 font-bold'>Get Started</Link>
             </h4>
         </>) : (
             <p>You are Logged In</p>

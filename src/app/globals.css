@@ -15,10 +15,19 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    /*color: var(--foreground);*/
+    color: black;
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* add global css here */
+/* Global styles using TailwindCSS */
+@layer components {
+    .link-text {
+        @apply text-green-500 font-bold
+    }
+    .page-style {
+        @apply bg-gray-200 rounded-lg flex flex-col items-center justify-center
+    }
+}
 
