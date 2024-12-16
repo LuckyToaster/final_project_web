@@ -1,6 +1,5 @@
 import { Formik, Form as FormikForm, Field, ErrorMessage, useFormikContext } from 'formik'
 import { object, string, ref } from 'yup'
-import Button from '@/components/Button.js'
 import '@/app/globals.css'
 
 export function Form({children, sendToParent, initialValues, validationSchema, submitButton}) {
@@ -9,7 +8,7 @@ export function Form({children, sendToParent, initialValues, validationSchema, s
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={sendToParent}>
             <FormikForm className={formikFormStyle}> 
                 {children}
-                <Button type="submit">{submitButton}</Button>
+                <button className='button-style' type="submit">{submitButton}</button>
             </FormikForm>
         </Formik>
     )

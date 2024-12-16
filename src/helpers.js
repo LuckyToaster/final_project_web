@@ -25,19 +25,29 @@ export async function validateEmail(lecode) {
 // we can return the json response as this will return the created user in json
 export async function registerUser(email, name, surnames, nif) {
     return await fetch(`${URL}user/register`, { 
-        method: 'POST', headers: {'Content-Type': 'application/json'},
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, name, surnames, nif })
     }).then(r => r.json())
 }
 
 export async function login(email, password) {
     const json = await fetch(`${URL}user/login`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password })
     }).then(r => r.json())
     localStorage.setItem('jwt', json.token)
 }
 
+
+export async function getClients() {
+    const jwt = localStorage.getItem('jwt')
+    return await fetch(`${URL}client`, {
+        method: 'GET', 
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`}
+    }).then(r => r.json())
+}
 
 
 export function maskEmail(email) {

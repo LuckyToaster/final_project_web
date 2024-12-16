@@ -1,17 +1,12 @@
-'use client'
-
-import { useRouter } from 'next/navigation'
-import Button from '@/components/Button.js'
+import Link from 'next/link'
 import './globals.css'
 
 export default function Home() {
-    const router = useRouter()
-    const handleClick = () => {router.push('/register')}
     return (
-        <main className='flex flex-col p-8'>
+        <main className='flex flex-col'>
             <div className='form-wrapper'>
-                <h3 className='mb-4'>Register your first user</h3> 
-                <Button onClick={handleClick}>Lets Get Started!</Button>
+                <h3 className='mb-4'>Register your user</h3> 
+                <Link className='button-style' href='/register'>Lets Get Started!</Link>
             </div>
         </main>
     )
