@@ -1,17 +1,22 @@
+'use client' 
+
 const URL = 'https://bildy-rpmaya.koyeb.app/api/'
 
-// 1) get jwt, either through register() or login()
 export async function register(email, password) {
     const json = await fetch(`${URL}user/register`, { 
         method: 'POST', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password })
     }).then(r => r.json())
-    localStorage.setItem('jwt', json.token)
+
+    if (json && json.token) {
+        localStorage.setItem('jwt', json.token)
+        return true
+    }
+    return false
 }
 
 
-// if registering, a code is sent through email for validation
 export async function validateEmail(lecode) {
     const jwt = localStorage.getItem('jwt')
     const res =  await fetch(`${URL}user/validation`, {
@@ -22,7 +27,7 @@ export async function validateEmail(lecode) {
     return res.ok 
 }
 
-// we can return the json response as this will return the created user in json
+
 export async function registerUser(email, name, surnames, nif) {
     return await fetch(`${URL}user/register`, { 
         method: 'POST', 
@@ -31,22 +36,61 @@ export async function registerUser(email, name, surnames, nif) {
     }).then(r => r.json())
 }
 
+
 export async function login(email, password) {
     const json = await fetch(`${URL}user/login`, {
         method: 'POST', 
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
         body: JSON.stringify({ email, password })
     }).then(r => r.json())
-    localStorage.setItem('jwt', json.token)
+    if (json && json.token && json.user) {
+        localStorage.setItem('jwt', json.token)
+        localStorage.setItem('user', json.user)
+        return true
+    }
+    return false
 }
 
 
+export function logout() {
+    localStorage.removeItem('jwt') 
+    localStorage.removeItem('user')
+}
+
+
+export function isLoggedIn() {
+    return localStorage.getItem('jwt') && localStorage.getItem('user')
+}
+
+
+export async function deleteAccount() {
+    const jwt = localStorage.getItem('jwt')
+    const res = await fetch(`${URL}user`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json', 'Authorization':  `Bearer ${jwt}`},
+    })
+    return res.ok
+}
+
+
+// 'Access-Control-Allow-Origin': '*',
 export async function getClients() {
     const jwt = localStorage.getItem('jwt')
     return await fetch(`${URL}client`, {
         method: 'GET', 
-        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${jwt}`}
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Authorization': `Bearer ${jwt}`}
     }).then(r => r.json())
+}
+
+
+export async function postClient(json) {
+    const jwt = localStorage.getItem('jwt')
+    const res = await fetch(`${URL}client`, {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Authorization': `Bearer ${jwt}`},
+        body: JSON.stringify(json)
+    })
+    return res.ok
 }
 
 
@@ -59,4 +103,5 @@ export function maskEmail(email) {
     }
     return email;
 }
+
 

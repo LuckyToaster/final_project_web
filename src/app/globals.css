@@ -48,6 +48,10 @@ p { font-size: theme('fontSize.base'); }
     .green-bg {
         @apply bg-green-400
     }
+    
+    .red-bg {
+        @apply bg-red-400
+    }
 
     .button-style {
         @apply flex h-10 items-center justify-center rounded-lg green-bg hover:bg-green-600 px-4 text-sm font-medium text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-green-600 font-bold

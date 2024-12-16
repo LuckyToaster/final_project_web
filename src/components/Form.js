@@ -60,6 +60,32 @@ export function SigninForm({sendToParent}) {
     )
 }
 
+ 
+export function NewClientForm({sendToParent}) {
+    const i = { name: '', cif: '', street: '', number: '', postal: '', city: '', province: ''}
+    const s = object({
+        name: string().required('Name is required'),
+        cif: string().required('cif is required'),
+        street: string(),
+        number: string(),
+        postal: string(),
+        city: string(),
+        province: string()
+    })
+    return (
+        <Form sendToParent={sendToParent} initialValues={i} validationSchema={s} submitButton='Add Client'>
+            <FormRow name='name' label='Name'/>
+            <FormRow name='cif' label='NIF'/>
+            <FormRow name='street' label='Street Name'/>
+            <FormRow name='number' label='Number'/>
+            <FormRow name='postal' label='Postal Code'/>
+            <FormRow name='city' label='City'/>
+            <FormRow name='province' label='Province'/>
+        </Form>
+    )
+    
+}
+
 
 export function ValidationForm({sendToParent}) {
     const i = {digit1: '', digit2: '', digit3: '', digit4: '', digit5: '', digit6: ''}
@@ -98,7 +124,6 @@ function CodeInput({name}) {
         const digits = pasted.match(/\d/g)
         
         if (digits && digits.length >= 6) {
-            // Fill all inputs with pasted digits
             for (let i = 1; i <= 6; i++) {
                 setFieldValue(`digit${i}`, digits[i-1])
             }
