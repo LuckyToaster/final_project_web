@@ -4,7 +4,7 @@ import Button from '@/components/Button.js'
 import '@/app/globals.css'
 
 export function Form({children, sendToParent, initialValues, validationSchema, submitButton}) {
-    const formikFormStyle = "bg-white p-8 rounded-lg shadow-md max-w-md mx-auto mr-4 ml-4"
+    const formikFormStyle = "flex flex-col max-w-md mx-auto"
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={sendToParent}>
             <FormikForm className={formikFormStyle}> 
@@ -17,7 +17,7 @@ export function Form({children, sendToParent, initialValues, validationSchema, s
 
 
 export function FormRow({name, label}) {
-    const fieldStyle = "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+    const fieldStyle = "w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
     const labelStyle = "block mb-2 font-medium"
     const errorMsgStyle = "text-red-600 text-sm mt-1"
     return (
@@ -80,7 +80,7 @@ export function ValidationForm({sendToParent}) {
 
     return (
         <Form sendToParent={handleSubmit} initialValues={i} validationSchema={s} submitButton='Validate Email'>
-            <div className="flex space-x-2 justify-center">
+            <div className='flex space-x-2 justify-center py-2'>
                 {[1,2,3,4,5,6].map((num) => (
                     <CodeInput key={num} name={`digit${num}`} />
                 ))}

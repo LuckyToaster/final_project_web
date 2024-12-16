@@ -1,28 +1,38 @@
 'use client' 
 
+import '@/app/globals.css'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
 import { ValidationForm } from '@/components/Form.js'
-import { validateEmail } from '@/helpers.js'
+import { validateEmail, maskEmail } from '@/helpers.js'
 
 
-export default function Register() {
+export default function Validate() {
     const [isValidated, setIsValidated] = useState(false)
+    const [email, setEmail] = useState('')
     const router = useRouter()
 
+    useEffect(() => {
+        const mail = localStorage.getItem('user-email')
+        if (mail) setEmail(maskEmail(mail))
+        else setEmail('your email')
+    }, [])
+
     const handleValidation = async (json) => {
-        console.log(json)
         await validateEmail(json.code)
         setIsValidated(true)
-        setTimeout(() => { router.push('/login')}, 5000)
+        setTimeout(() => { router.replace('/login')}, 5000)
     }
 
-    return <> 
-        {!isValidated ? (
+    return (
+        <div className='form-wrapper'>
+        {!isValidated ? (<>
+            <h2>Enter verification code</h2>
+            <p>We have just sent a code to {email}</p>
             <ValidationForm sendToParent={async (json) => await handleValidation(json)}/>
-        ) : (
-            <p>Validation Successful</p>
+        </>) : (
+            <h3>Validation Successful</h3>
         )}
-    </>
+        </div>
+    )
 }

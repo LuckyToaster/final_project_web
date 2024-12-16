@@ -39,3 +39,14 @@ export async function login(email, password) {
 }
 
 
+
+export function maskEmail(email) {
+    const idx = email.indexOf("@");
+    if (idx !== -1) {
+        const username = email.slice(0, idx);
+        const maskedUsername = username.charAt(0) + '*'.repeat(username.length - 1);
+        return maskedUsername + email.slice(idx);
+    }
+    return email;
+}
+
